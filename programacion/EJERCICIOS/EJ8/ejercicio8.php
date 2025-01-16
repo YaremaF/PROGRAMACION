@@ -75,20 +75,28 @@ class Empleado{
     public $sueldo;
     public $aniosExperiencia;
 
-    public function calcularBonus(){
+    public function calcularBonusAnitguedad(){
         //vamos a meter una division entre 2 y que redondee a enteros luego aplicamos el 5%
-        $this->sueldo = (floor($this->aniosExperiencia))*1.05;
+        $bonusA = (floor($this->aniosExperiencia)) * 0.05 * $this->sueldo;
+        return $bonusA;
     }
-    public function mostrarDetalles(){
-        
+    public function mostrarDetalles($bonusA){
+        echo "El empleado " . $this->nombre . " con un sueldo de " . $this->sueldo . " y con una antiguedad de " . $this->aniosExperiencia . " cobra un bonus de " . $bonusA;
     }
 }
 class Consultor extends Empleado{
     public $horasPorProyecto;
 
-    public function calcularBonus(){
+    public function calcularBonusHoras(){
         //aquí vamos a añadir un 10% de bonus por cada 100 horas,
         //las hortas restantes se redondean igual
+        $bonusH = (floor($this->horasPorProyecto)) * 0.1 * $this->sueldo;
+        return $bonusH;
+
+    }
+    public function mostrarDetalles($bonusH){
+        echo "El empleado " . $this->nombre . " con un sueldo de " . $this->sueldo . " y con una antiguedad de " . $this->aniosExperiencia . " cobra un bonus de " . $bonusH;
+        echo "Además por trabajar " . $this->horasPorProyecto . " horas en los proyectos, cobrará otro bonus por horas extras de " . $bonusH;
     }
 }
 
@@ -96,13 +104,15 @@ $empleado = new Empleado();
 $empleado->nombre = "Juan Pérez";
 $empleado->sueldo = 1550;
 $empleado->aniosExperiencia = 5;
-
+$empleado->calcularBonusAnitguedad();
+$empleado->mostrarDetalles($bonusA);
 
 $consultor = new Consultor();
 $consultor->nombre = "Alicia Robles";
 $consultor->sueldo = 1758;
 $consultor->aniosExperiencia = 6;
 $consultor->horasPorProyecto = 225;
+$consultor->calcularBonusHoras();
+$consultor->mostrarDetalles($bonusH);
 
-echo round(5.5, -1);
 ?>
